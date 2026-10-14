@@ -1,4 +1,4 @@
-package com.stream.reactive_kafka.configuration;
+package com.stream.reactive_kafka.producer;
 
 import com.stream.reactive_kafka.dto.OrderCreated;
 import jakarta.annotation.PostConstruct;

@@ -1,4 +1,4 @@
-package com.stream.reactive_kafka.configuration;
+package com.stream.reactive_kafka.producer;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
