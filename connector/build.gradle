@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+    // Плагін для створення "Fat JAR" зі всіма залежностями всередині
+    id 'com.gradleup.shadow' version "9.5.0"
+
+}
+
+group = 'com.kafka'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:6.0.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    // compileOnly — Kafka Connect API вже є на сервері, тому в JAR його не пакуємо
+    compileOnly("org.apache.kafka:connect-api:4.4.0")
+
+
+    // facade for logger
+    compileOnly 'org.slf4j:slf4j-api:2.0.13'
+    // 2. Реалізація логера, яка буде виводити повідомлення в консоль/файл
+    // Використовуємо runtimeOnly, щоб вона не конфліктувала на сервері Kafka,
+    // але працювала під час локальних запусків
+    runtimeOnly 'org.slf4j:slf4j-simple:2.0.13'
+
+    // 3. Якщо логер потрібен суто для запусків JUnit тестів у проекті:
+    testImplementation 'org.slf4j:slf4j-simple:2.0.13'
+
+
+    implementation 'com.squareup.okhttp3:okhttp:5.5.0' // for http calls
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+// Налаштування плагіна компіляції (задаємо кодування UTF-8)
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+// Налаштування збірки Shadow JAR
+shadowJar {
+    archiveBaseName.set('my-kafka-connector')
+    archiveClassifier.set('') // Прибирає суфікс "-all" з назви файлу
+    archiveVersion.set('1.0')
+
+    // Об'єднує службові файли з папки META-INF/services (критично для плагінів Kafka)
+    mergeServiceFiles()
+}

@@ -1,0 +1,4 @@
+tasks.max=1
+name=my-source-connector-standalone
+connector.class=com.kafka.connector.MySourceConnector
+topic.write.to=reactive-kafka-test

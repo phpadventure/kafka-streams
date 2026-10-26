@@ -40,8 +40,12 @@ Purpose of this project is to host kafka application with minimal features inclu
 - `./kafka-console-consumer.sh --topic quickstart-events --from-beginning --bootstrap-server localhost:9092` consumer to read events
 - `./kafka-console-consumer.sh --topic reactive-kafka-test --from-beginning --bootstrap-server localhost:9092 --group concole_group_2 --property print.key=true --property print.headers=true`
 
-### new cluster
+## new cluster if run manually under UNIX
 -  KAFKA_CLUSTER_ID="$(bin/kafka-storage.sh random-uuid)"
 - $ bin/kafka-storage.sh format --standalone -t $KAFKA_CLUSTER_ID -c config/server.properties
 - $ bin/kafka-server-start.sh config/server.properties
+
+## Install via docker-compose.
+Will be used to run connector worker in standalone and distributed mode.
+Components: kafka + kafka workers with connectors
 
