@@ -15,13 +15,18 @@
 - serialization configuration of objects for key, value, schema included for key,value
 - plugin.path to the jar
 - offset.storage.file.filename - path where stored offset data on local machine if worker crashes that it can gracefully restart
-8. Quick start with running docker container of kafka
-    - copy jar `docker cp D:\development\lohika\kafka_course\reactive-kafka\connector\build\libs\my-kafka-connector-1.0.jar  kind_elbakyan:/opt/kafka/connectors`
-    - create copy of worker config and put plugin path `/opt/kafka/connectors`
-    - copy configuration `docker cp D:\development\lohika\kafka_course\reactive-kafka\connector\my-source-connector.configuration  kind_elbakyan:/opt/kafka/config`
-    - run in new terminal in docker container ` ./connect-standalone.sh ../config/my-connector-standalone.properties ../config/my-source-connector.configuration`
-    -  before create a new topic `reactive-kafka-test`
-    - in other terminal connect to consume messages for test `./kafka-console-consumer.sh --topic reactive-kafka-test --from-beginning --bootstrap-server localhost:9092 --group concole_group_2 --property print.key=true --property print.headers=true`
+8. Dockerize
+   1. MANUAL - Quick start with running docker container of kafka
+             - copy jar `docker cp D:\development\lohika\kafka_course\reactive-kafka\connector\build\libs\my-kafka-connector-1.0.jar  kind_elbakyan:/opt/kafka/connectors`
+             - create copy of worker config and put plugin path `/opt/kafka/connectors`
+             - copy configuration `docker cp D:\development\lohika\kafka_course\reactive-kafka\connector\my-source-connector.configuration  kind_elbakyan:/opt/kafka/config`
+             - run in new terminal in docker container ` ./connect-standalone.sh ../config/my-connector-standalone.properties ../config/my-source-connector.configuration`
+             -  before create a new topic `reactive-kafka-test`
+             - in other terminal connect to consume messages for test `./kafka-console-consumer.sh --topic reactive-kafka-test --from-beginning --bootstrap-server localhost:9092 --group concole_group_2 --property print.key=true --property print.headers=true`
+   2. Docker compose
+      - Docker file or simple service in docker-compose which start kafka and uses volume to persist(no mount)
+      - Other service with workers for docker connect. We will need script which build JAVA(multistage) image, copy configs for worker and connector
+      - Docker-compose at root level in reactive-kafka project 
 
 
 ## How to start as distributed workers:
