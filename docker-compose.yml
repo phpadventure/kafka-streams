@@ -1,12 +1,16 @@
 services:
   kafka:
-    image: apache/kafka:4.3.1
+    build: .
+    #image: apache/kafka:4.3.1
     container_name: my-kafka-broker
     ports:
       - "9094:9094"
     networks:
       - kafka-net
     environment:
+      # кастомні топіки, comma separated list
+      KAFKA_BOOTSTRAP_TOPICS: "reactive-kafka-test"
+
       # Налаштування KRaft (Обов'язкові для версії 4.x)
       KAFKA_NODE_ID: 1
       KAFKA_PROCESS_ROLES: broker,controller
@@ -23,6 +27,14 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+  worker:
+    build:
+      context: ./connector
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8083"
+    networks:
+      - kafka-net
 
 networks:
   kafka-net:
