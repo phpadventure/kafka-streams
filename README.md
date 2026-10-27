@@ -1,26 +1,26 @@
 Purpose of this project is to host kafka application with minimal features including next tech stack:
 
 ### Phase 1:
-- kafka
-- kafka connect
+- kafka [DONE]
+- kafka connect [DONE]
 - kafka streams + play with windows
-- multi threads
+- multi threads [POSTPONE]
 - istio
 - k8s + helm
 - AWS
 - terraform
-- docker
+- docker/docker-compose [DONE]
 - monitoring prometheus/graphana
 - open telemetry cloud sleuth(spring cloud) + jaeger
 
 
 ### Phase 2:
 - kafka SQL
-- ELK(filebeat)
-- refactor to use WebFlux, Java Reactor
-- GCP?
-- github actions
-- tests
+- ELK(filebeat) 
+- refactor to use WebFlux, Java Reactor [POSTPONE]
+- GCP? [POSTPONE]
+- github actions [POSTPONE]
+- tests [POSTPONE]
 
 
 # Windows prerequisites
