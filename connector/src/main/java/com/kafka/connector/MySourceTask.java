@@ -31,6 +31,23 @@ public class MySourceTask extends SourceTask {
         if (!configProps.containsKey(MyConnectorConfig.TOPIC_WRITE_TO)) {
             throw new RuntimeException("Missing topic configuration");
         }
+
+// THIS PART OF CODE CAN BE USED WHEN WE NEED TO READ FROM PLACE WHERE PREVIOUS WORKER STOPPED
+//        // Отримуємо доступ до сховища збережених офсетів через контекст таски
+//        OffsetStorageReader offsetReader = this.context.offsetStorageReader();
+//
+//        // Питаємо, який офсет було збережено для таблиці "orders"
+//        Map<String, String> partition = Collections.singletonMap("table", "orders");
+//        Map<String, Object> lastOffset = offsetReader.offset(partition);
+//
+//        long lastReadId = 0;
+//        if (lastOffset != null) {
+//            // Якщо ми вже працювали раніше, відновлюємо наш ID
+//            lastReadId = (Long) lastOffset.get("last_id");
+//        }
+//
+//        // Тепер ви знаєте, що наступний SQL-запит до вашої БД має починатися з:
+//        // "SELECT * FROM orders WHERE id > " + lastReadId
     }
 
     @Override

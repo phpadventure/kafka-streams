@@ -1,0 +1,114 @@
+{
+  "info": {
+    "_postman_id": "88f17808-f056-4b5c-9477-8739a86ec619",
+    "name": "kafka-connector",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "59281017",
+    "_collection_link": "https://go.postman.co/collection/59281017-88f17808-f056-4b5c-9477-8739a86ec619?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "http://127.0.0.1:8084/connectors",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n       \"name\": \"my-source-connector-distributed\",\r\n       \"config\": {\r\n         \"connector.class\": \"com.kafka.connector.MySourceConnector\",\r\n         \"topic.write.to\": \"reactive-kafka-test\",\r\n         \"tasks.max\": \"3\"\r\n       }\r\n     }",
+          "options": {
+            "raw": {
+              "language": "text"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8084/connectors",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8084",
+          "path": [
+            "connectors"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8084/connectors/my-source-connector-distributed",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n       \"name\": \"my-source-connector-distributed\",\r\n       \"config\": {\r\n         \"connector.class\": \"com.kafka.connector.MySourceConnector\",\r\n         \"topic.write.to\": \"reactive-kafka-test\",\r\n         \"tasks.max\": \"3\"\r\n       }\r\n     }",
+          "options": {
+            "raw": {
+              "language": "text"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8084/connectors/my-source-connector-distributed",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8084",
+          "path": [
+            "connectors",
+            "my-source-connector-distributed"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8084/connectors",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n       \"name\": \"my-source-connector-distributed\",\r\n       \"config\": {\r\n         \"connector.class\": \"com.kafka.connector.MySourceConnector\",\r\n         \"topic.write.to\": \"reactive-kafka-test\",\r\n         \"tasks.max\": \"3\"\r\n       }\r\n     }",
+          "options": {
+            "raw": {
+              "language": "text"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8084/connectors",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8084",
+          "path": [
+            "connectors"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
