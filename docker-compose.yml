@@ -27,7 +27,7 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
-  worker:
+  kafka-connect-standalone-worker:
     build:
       context: ./connector
       dockerfile: Dockerfile
@@ -35,7 +35,42 @@ services:
       - "8083:8083"
     networks:
       - kafka-net
-
+  kafka-connect-distributed-worker:
+    build:
+      context: ./connector
+      dockerfile: DistributedWorker.Dockerfile
+    ports:
+      - "8084-8086:8083"
+    deploy:
+      replicas: 3
+    networks:
+      - kafka-net
+  kafka-connect-distributed-setup:
+    image: curlimages/curl:latest
+    volumes:
+      - ./connector/configure-connector-for-distributed-worker.sh:/app/configure-connector-for-distributed-worker.sh
+    depends_on:
+      - kafka-connect-distributed-worker
+    command: >
+      /bin/sh -c "
+      echo '=== START SETUP CONTAINER ===';
+      echo 'Checking network connection to worker...';
+      
+      while ! nc -z kafka-connect-distributed-worker 8083; do
+        echo 'Worker port 8083 is still closed, sleeping...';
+        sleep 3;
+      done;
+      
+      echo 'SUCCESS: Kafka Connect port 8083 is OPEN!';
+      echo 'Executing script now...';
+      
+      chmod +x /app/configure-connector-for-distributed-worker.sh;
+      /bin/sh /app/configure-connector-for-distributed-worker.sh;
+      
+      echo '=== SETUP CONTAINER FINISHED ===';
+      "
+    networks:
+      - kafka-net
 networks:
   kafka-net:
     name: kafka-net

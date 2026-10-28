@@ -36,6 +36,12 @@
 
 
 ## How to start as distributed workers:
+Additional settings for workers:
 - Replication factor for offset and topic - is used to store worker state between replicas and topics.
 - port
-- 
+- group.id - also need to be set
+- use DistributedWorker.Dockerfile. We will use Rest call to setup connectors for a cluster. Port of workers should go from 8083-8085 for example and should differ if it's on one machine. \
+In our case it different replicas, so docker will give random ports. 
+- Use docker-compose for this and separate service to configure workers after workers is up
+- distributed.docker.config simply has overridden params for my docker-compose variables from default distributed.config(default)
+- `configure-connector-for-distributed-worker.sh` execute rest configuration call

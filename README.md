@@ -2,7 +2,7 @@ Purpose of this project is to host kafka application with minimal features inclu
 
 ### Phase 1:
 - kafka [DONE]
-- kafka connect [DONE]
+- kafka connect [DONE] - waiting for distributed mode
 - kafka streams + play with windows
 - multi threads [POSTPONE]
 - istio
